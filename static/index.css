@@ -110,3 +110,7 @@
     margin: auto;
     float: right;
 }
+
+.postListOne{
+    cursor: pointer;
+}
