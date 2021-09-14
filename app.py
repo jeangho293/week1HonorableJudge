@@ -12,10 +12,23 @@ SECRET_KEY = '99judge2'
 
 @app.route('/')
 def main():
+    token_receive = request.cookies.get('mytoken')
+
     posts = list(db.post.find({}))
     for post in posts:
         post["_id"] = str(post["_id"])
-    return render_template('index.html', posts=posts)
+
+    if token_receive is not None:
+        try:
+            payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
+            user = db.users.find_one({"id": payload["id"]}, {'_id': False})
+            return render_template('index.html', posts=posts, id=user["id"])
+        except jwt.ExpiredSignatureError:
+            return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
+        except jwt.exceptions.DecodeError:
+            return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+    else:
+        return render_template('index.html', posts=posts)
 
 @app.route('/login_main')
 def login_main():
@@ -29,19 +42,17 @@ def register_user():
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
     doc = {
-        "id": id_receive,  # 아이디
-        "pw": pw_hash,  # 비밀번호
+        "id": id_receive,
+        "pw": pw_hash,
     }
 
-    user_id_exist_check(id_receive)
     db.users.insert_one(doc)
     return jsonify({'result': 'success'})
 
 @app.route('/register/check_dup', methods=['POST'])
 def check_dup():
     username_receive = request.form['username_give']
-    exists = bool(db.users.find_one({"username": username_receive}))
-    # print(value_receive, type_receive, exists)
+    exists = bool(db.users.find_one({"id": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
 @app.route('/login', methods=['POST'])
@@ -58,12 +69,9 @@ def login():
          'exp': datetime.utcnow() + timedelta(seconds=60 * 60 * 24)  # 로그인 24시간 유지
         }
 
-        # token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
-        # 3.9
-        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
+        token = jwt.encode(payload, SECRET_KEY, algorithm='HS256').decode('utf-8')
 
         return jsonify({'result': 'success', 'token': token})
-    # 찾지 못하면
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
@@ -89,7 +97,6 @@ def get_post_list():
 
 @app.route('/post', methods=['GET'])
 def get_post():
-    # writing_id_receive = request.form['writing_id']
     writing_id_receive = request.args.get("writing_id")
     writing_id_valid_check(writing_id_receive)
     post = db.post.find_one({'writing_id':writing_id_receive},{'_id':False})
@@ -106,10 +113,10 @@ def add_post():
         title_receive = request.form['title']
         content_receive = request.form['content']
         image_receive = request.form['image']
-        id = db.users.find_one({"id": payload["id"]}, {'_id':False})
+        user = db.users.find_one({"id": payload["id"]}, {'_id':False})
 
         doc = {
-            'id': id,
+            'id': user["id"],
             'title': title_receive,
             'content': content_receive,
             'image': image_receive,
@@ -133,12 +140,12 @@ def add_comment():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
-        id = db.users.find_one({"id": payload["id"]})
+        user = db.users.find_one({"id": payload["id"]})
         writing_id_receive = request.form['writing_id']
         comment_receive = request.form['com']
         writing_id_valid_check(writing_id_receive)
         db.post.update_one({'writing_id': writing_id_receive},
-                           {'$push': {'comments': {'comment': comment_receive, 'id': id}}})
+                           {'$push': {'comments': {'comment': comment_receive, 'id': user["id"]}}})
         return jsonify({'msg': '댓글이 작성되었습니다.'})
     except jwt.ExpiredSignatureError:
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
@@ -183,16 +190,6 @@ def writing_id_valid_check(writing_id):
     # todo try catch
     if db.post.find_one({'writing_id': writing_id}) is None:
         raise Exception('존재하지 않는 글 ID 입니다.')
-
-# def writing_id_exist_check(writing_id):
-#     # todo try catch
-#     if db.post.find_one({'writing_id': writing_id}) is not None:
-#         raise Exception('이미 존재하는 글 ID 입니다.')
-
-def user_id_exist_check(id):
-    # todo try catch
-    if db.users.find_one({'id': id}) is not None:
-        raise Exception('이미 존재하는 사용자 ID 입니다.')
 
 if __name__ == '__main__':
    app.run('0.0.0.0',port=5000,debug=True)

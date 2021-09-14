@@ -227,7 +227,7 @@
                     placeholder="고민 내용을 입력해주세요"
             ></textarea>
         </div>
-        <button style="float: right; margin-bottom: 50px">재판 접수</button>
+        <button style="float: right; margin-bottom: 50px" onclick="post()">재판 접수</button>
     </div>
 </div>
 
@@ -237,6 +237,25 @@
         $(".list-all").show();
         $(".post-container").hide();
     });
+
+    // 재판접수
+    function post() {
+        let title = $(".input-title").val()
+        let comment = $(".input-content").val()
+
+        $.ajax({
+            type: "POST",
+            url: "/post",
+            data: {
+                title: title,
+                content: comment,
+                image: ''
+            },
+            success: function (response) {
+                window.location.reload()
+            }
+        })
+    }
 
     // 재판하기
     $("#getJudge").click(function () {
