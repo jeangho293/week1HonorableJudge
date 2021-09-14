@@ -87,33 +87,38 @@
         .reply-data {
             font-family: 'Jua', sans-serif;
         }
+
+        .LikeorUnlike {
+            height: 100px;
+
+        }
+
+        .LikeButton {
+            width: 80px;
+            border-radius: 50%;
+        }
+
+        .UnlikeButton {
+            width: 88px;
+            border-radius: 50%;
+        }
+
+        .reply-list {
+            margin-top: 50px;
+        }
     </style>
 
     <script>
         $(document).ready(function () {
-            //get_list()
         })
-
-        function get_list() {
-            $.ajax({
-                type: "GET",
-                url: "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
-                data: {},
-                success: function (response) {
-                    //let rows = response["RealtimeCityAir"]["row"];
-                    console.log(1)
-                }
-            })
-        }
 
         // 댓글 작성버튼에 대한 이벤트
         // server 에 댓글을 POST
         // 현재의 HTML append 작업
         function PostReply() {
-            let writing_id = '1';
-            let id = '정호';
-            let comment = $('#ReplyComment').val();
+            let writing_id = 1;
 
+            let comment = $('#ReplyComment').val();
             $.ajax({
                 type: "POST",
                 url: '/post',
@@ -125,21 +130,8 @@
                 }
             });
             window.location.reload();
-
-
-            /*
-            let temp_html = `<li>작성자 <span>&nbsp;&nbsp;(2021-09-13 15:00:00)</span>
-                                <br>
-                                <div>
-                                    ${comment}
-                                </div>
-                                <hr>
-                            </li>`;
-
-            $('#ReplyList').append(temp_html);*/
         }
     </script>
-
 
 </head>
 <body>
@@ -177,6 +169,27 @@
             <div class="article-content">
                 fdsafdasfdas
             </div>
+            <hr>
+
+            <!-- 공감 비공감 입니다 -->
+            <div class="LikeorUnlike">
+                <div style="text-align: center;">
+                    <button><img src="/static/good_thumb.png" class="LikeButton"></button>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button><img src="/static/bad_thumb.png" class="UnlikeButton"></button>
+                    <!-- 공감 비공감 텍스트입니다 -->
+                    <div style="width: 250px; margin: 10px auto;">
+                        <div style="float:left; width: 35%; text-align: center;">
+                            공감 : 0
+                        </div>
+                        <div style="float: right; width: 40%; text-align: center;">
+                            비공감 : 0
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
 
             <!-- 댓글 리스트 입니다 -->
             <div class="reply-list">
@@ -184,7 +197,6 @@
                 <hr>
                 <div>
                     <ul class="reply-ul" id="ReplyList">
-
                         <li class="reply-data">정호 <span>&nbsp;&nbsp;(2021-09-13 15:00:00)</span>
                             <br>
                             <div>
@@ -232,23 +244,17 @@
                             </div>
                             <hr>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
 
             <!--  댓글 달기  -->
             <article class="media">
-                <figure class="media-left">
-                    <p class="image is-64x64">
-                        <img src="/static/image.jfif">
-                    </p>
-                </figure>
                 <div class="media-content">
                     <div class="field">
                         <p class="control">
-                            <textarea rows="3" class="textarea" placeholder="댓글을 달아주세요!" id="ReplyComment"></textarea>
+                                <textarea rows="3" class="textarea" placeholder="댓글을 달아주세요!"
+                                          id="ReplyComment"></textarea>
                         </p>
                     </div>
                     <nav class="level">
@@ -263,5 +269,6 @@
         </div>
     </div>
 </div>
+
 </body>
 </html>
