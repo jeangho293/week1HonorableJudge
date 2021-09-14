@@ -1,3 +1,4 @@
+from bson import ObjectId
 from flask import Flask, render_template, jsonify, request
 from pymongo import MongoClient
 from datetime import datetime, timedelta
@@ -97,9 +98,9 @@ def get_post_list():
 
 @app.route('/post', methods=['GET'])
 def get_post():
-    writing_id_receive = request.args.get("writing_id")
-    writing_id_valid_check(writing_id_receive)
-    post = db.post.find_one({'writing_id':writing_id_receive},{'_id':False})
+    post_id_receive = ObjectId(request.args.get("post_id"))
+    post_id_valid_check(post_id_receive)
+    post = db.post.find_one({'post_id':post_id_receive},{'_id':False})
     return render_template('post.html', post=post)
 
 @app.route('/post', methods=['POST'])
@@ -109,7 +110,6 @@ def add_post():
     try:
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
-        # writing_id_receive = request.form['writing_id']
         title_receive = request.form['title']
         content_receive = request.form['content']
         image_receive = request.form['image']
@@ -141,10 +141,10 @@ def add_comment():
         payload = jwt.decode(token_receive, SECRET_KEY, algorithms=['HS256'])
 
         user = db.users.find_one({"id": payload["id"]})
-        writing_id_receive = request.form['writing_id']
+        post_id_receive = request.form['post_id']
         comment_receive = request.form['com']
-        writing_id_valid_check(writing_id_receive)
-        db.post.update_one({'writing_id': writing_id_receive},
+        post_id_valid_check(post_id_receive)
+        db.post.update_one({'post_id': post_id_receive},
                            {'$push': {'comments': {'comment': comment_receive, 'id': user["id"]}}})
         return jsonify({'msg': '댓글이 작성되었습니다.'})
     except jwt.ExpiredSignatureError:
@@ -154,41 +154,41 @@ def add_comment():
 
 @app.route('/post', methods=['DELETE'])
 def delete_post():
-    writing_id_receive = request.form['writing_id']
+    post_id_receive = request.form['post_id']
 
-    writing_id_valid_check(writing_id_receive)
-    db.post.delete_one({'writing_id': writing_id_receive})
+    post_id_valid_check(post_id_receive)
+    db.post.delete_one({'post_id': post_id_receive})
     return jsonify({'msg': '고민이 삭제되었습니다.'})
 
 @app.route('/post', methods=['PUT'])
 def update_post():
-    writing_id_receive = request.form['writing_id']
+    post_id_receive = request.form['post_id']
     title_receive = request.form['title']
     content_receive = request.form['content']
     image_receive = request.form['image']
 
-    writing_id_valid_check(writing_id_receive)
+    post_id_valid_check(post_id_receive)
 
-    db.post.update_one({'writing_id': writing_id_receive},{'$set': {'title': title_receive,'content': content_receive,'image': image_receive}})
+    db.post.update_one({'post_id': post_id_receive},{'$set': {'title': title_receive,'content': content_receive,'image': image_receive}})
     return jsonify({'msg': '고민이 수정되었습니다.'})
 
 @app.route('/like', methods=['POST'])
 def like_post():
-    writing_id_receive = request.form['writing_id']
-    writing_id_valid_check(writing_id_receive)
-    db.post.update_one({'writing_id': writing_id_receive}, {'$inc': {'like':1}})
+    post_id_receive = request.form['post_id']
+    post_id_valid_check(post_id_receive)
+    db.post.update_one({'post_id': post_id_receive}, {'$inc': {'like':1}})
     return jsonify({'msg': '추천.'})
 
 @app.route('/unlike', methods=['POST'])
 def unlike_post():
-    writing_id_receive = request.form['writing_id']
-    writing_id_valid_check(writing_id_receive)
-    db.post.update_one({'writing_id': writing_id_receive}, {'$inc': {'unlike':1}})
+    post_id_receive = request.form['post_id']
+    post_id_valid_check(post_id_receive)
+    db.post.update_one({'post_id': post_id_receive}, {'$inc': {'unlike':1}})
     return jsonify({'msg': '비추천.'})
 
-def writing_id_valid_check(writing_id):
+def post_id_valid_check(post_id):
     # todo try catch
-    if db.post.find_one({'writing_id': writing_id}) is None:
+    if db.post.find_one({'_id': post_id}) is None:
         raise Exception('존재하지 않는 글 ID 입니다.')
 
 if __name__ == '__main__':

@@ -70,61 +70,6 @@
         <div class="newList">
             <!-- <h3>재판 중</h3> -->
             <ul class="list-group">
-                <!-- <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  동생이 탕수육을 자꾸 부어먹습니다. 때려도 무죄인가요?
-                  <span class="badge badge-primary badge-pill">14</span>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  아몰라 응애
-                  <span class="badge badge-primary badge-pill">2</span>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  국밥을 시켰는데 밥이 말아져 나왔습니다.
-                  <span class="badge badge-primary badge-pill">1</span>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  별거아닙니다.
-                  <span class="badge badge-primary badge-pill">0</span>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  별거아닙니다2
-                  <span class="badge badge-primary badge-pill">0</span>
-                </li> -->
                 <div id="pagination"></div>
                 <div id="demo"></div>
             </ul>
@@ -232,6 +177,8 @@
 </div>
 
 <script>
+    let postList = null;
+
     //재판받기
     $("#doJudge").click(function () {
         $(".list-all").show();
@@ -263,65 +210,27 @@
         $(".post-container").show();
     });
 
-    // 페이지네이션
-    $("#demo").pagination({
-        pageSize: "7",
-        dataSource: [
-            {
-                comment: "동생이 탕수육을 자꾸 부어먹습니다. 때려도 무죄인가요?",
-                like: 14,
-            },
-            {
-                comment: "아몰라 응애",
-                like: 2,
-            },
-            {
-                comment: "국밥을 시켰는데 밥이 말아져 나왔습니다.",
-                like: 1,
-            },
-            {
-                comment: "아몰라 응애",
-                like: 3,
-            },
-            {
-                comment: "별거아닌 고민1",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민2",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민3",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민4",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민5",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민6",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민7",
-                like: 0,
-            },
-            {
-                comment: "별거아닌 고민8",
-                like: 0,
-            },
-        ],
-        callback: function (data, pagination) {
-            var dataHtml = "<div>";
+    // 글 목록 받아오기
+    function getPosts() {
 
-            $.each(data, function (index, item) {
-                dataHtml +=
-                    `<li
+        $("#post-box").empty()
+        $.ajax({
+            type: "GET",
+            url: `/posts`,
+            data: {},
+            success: function (response) {
+                postList = response['posts'];
+                console.log(postList)
+                // 페이지네이션
+                $("#demo").pagination({
+                    pageSize: "7",
+                    dataSource: postList.reverse(),
+                    callback: function (data, pagination) {
+                        var dataHtml = "<div>";
+
+                        $.each(data, function (index, item) {
+                            dataHtml +=
+                                `<li
               class="
                 list-group-item
                 d-flex
@@ -329,17 +238,24 @@
                 align-items-center
               "
             >` +
-                    item["comment"] +
-                    `
+                                item["title"] +
+                                `
               <span class="badge badge-primary badge-pill">${item["like"]}</span>
             </li>`;
-            });
+                        });
 
-            dataHtml += "</div>";
+                        dataHtml += "</div>";
 
-            $("#pagination").html(dataHtml);
-        },
-    });
+                        $("#pagination").html(dataHtml);
+                    },
+                });
+            }
+        })
+    }
+
+    getPosts();
+
+
 </script>
 </body>
 </html>
