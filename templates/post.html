@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>고민 글 작성</title>
+    <title>고민 글 상세내용</title>
 
     <!-- Bulma CSS 링크 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
@@ -105,7 +105,7 @@
                     data: {post_id: PostID, comment_id: CommentID},
                     success: function (response) {
                         alert(response['msg'])
-                        $('#ReplyDiv').load(window.location.href + " #ReplyDiv")
+                        $('#ReplyDiv').load( window.location.href + " #ReplyDiv")
                     },
                     error: function (e) {
                         alert(e.responseText);
@@ -272,18 +272,18 @@
                         {% for comment in comments %}
                             <li class="reply-data">
                                 <div style="height: 35px;">
-                                    <div style="float: left; width: 50%;">
-                                <span style="font-size: 17px;">
+                                    <div class="reply-userid-div">
+                                <span class="reply-userid">
                                     {{ comment.user_id }}
                                 </span>
-                                        <span style="color: gainsboro; font-size: 12px;">
+                                        <span class="reply-comment-date">
                                     &nbsp;({{ comment.create_date }})
                                 </span>
                                     </div>
-                                    <div style="float: right;">
+                                    <div class=reply-delete-div>
                                         <button class="button is-light" onclick="DeleteReply(this.value)"
                                                 id="Comment_number" value="{{ comment._id }}">
-                                            <span style="font-size:10px;">
+                                            <span class="reply-delete-font">
                                                 <strong>삭제</strong>
                                             </span>
                                         </button>
