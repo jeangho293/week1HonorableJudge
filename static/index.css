@@ -141,7 +141,7 @@
 }
 
 .logoutBtn {
-    margin: 0 20px;
+    margin: 0 0 0 20px;
     display: none;
     float: right;
     cursor: pointer;
