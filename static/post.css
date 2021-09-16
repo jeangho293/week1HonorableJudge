@@ -146,9 +146,31 @@
 }
 
 .post_title_div {
-            text-align: center;
-        }
+    text-align: center;
+}
 
-        .post_title {
-            font-size: 70px;
-        }
+.post_title {
+    font-size: 70px;
+}
+
+.reply-userid-div {
+    float: left;
+    width: 50%;
+}
+
+.reply-userid {
+    font-size: 17px;
+}
+
+.reply-comment-date {
+    color: gainsboro;
+    font-size: 12px;
+}
+
+.reply-delete-div {
+    float: right;
+}
+
+.reply-delete-font {
+    font-size: 10px;
+}
