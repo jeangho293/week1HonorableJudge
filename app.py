@@ -63,7 +63,7 @@ def mypage():
                 post = db.post.find_one({"_id": ObjectId(comment["post_id"])})
                 comment["post_title"] = post["title"]
 
-            return render_template('mypage.html', posts=posts, comments=comments, id=user["user_id"])
+            return render_template('mypage.html', posts=posts, comments=comments, id=user["user_id"], page_size=10)
         except jwt.ExpiredSignatureError:
             msg = '로그인 시간이 만료되었습니다.'
             return render_template('error.html', msg=msg)
