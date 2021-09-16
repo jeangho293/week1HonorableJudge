@@ -63,3 +63,13 @@ button {
     cursor: pointer;
 }
 
+.titleImg{
+    position: absolute;
+    width: 50vw;
+    top: 100px;
+    right: 20vw;
+}
+
+img{
+    object-fit: cover;
+}
