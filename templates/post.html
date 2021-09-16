@@ -177,15 +177,6 @@
         }
     </script>
 
-    <style>
-        .post_title_div {
-            text-align: center;
-        }
-
-        .post_title {
-            font-size: 70px;
-        }
-    </style>
 </head>
 <body>
 <div>
@@ -224,7 +215,7 @@
 
             <!-- 글 제목 -->
             <div class="article-title">
-                <span style="font-size:20px;">{{ post.title }}</span>
+                <span class="title-font">{{ post.title }}</span>
             </div>
             <hr>
 
@@ -235,13 +226,13 @@
             <hr>
 
             <!-- 재판 수정, 재판 삭제 -->
-            <div style="text-align: center; height: 70px; display: block;">
-                <div style="padding-top: 10px;">
-                    <button style="margin-right:30px;" class="button is-warning" onclick="EditPostButton()">
+            <div class="delete-edit-div">
+                <div class="delete-edit">
+                    <button class="button is-warning edit-button" onclick="EditPostButton()">
                         <span><strong>재판 수정</strong></span>
                     </button>
                     <button class="button is-danger" onclick="DeletePost()" value="{{ post._id }}" id="DeletePost">
-                        <span style="color: black;"><strong>재판 삭제</strong></span>
+                        <span class="delete-button-text"><strong>재판 삭제</strong></span>
                     </button>
                 </div>
             </div>
@@ -249,7 +240,7 @@
 
             <!-- 공감 비공감 입니다 ------------------------------------------->
             <div class="Like-Unlike">
-                <div style="text-align: center;">
+                <div class="Like-Unlike-div">
                     <button class="LikeButton-border" onclick="PushLikeButton()"
                             value="like {{ post._id }}" id="LikeButton">
                         <img src="/static/good_thumb.png" class="LikeButton-image">
@@ -261,11 +252,11 @@
                     </button>
 
                     <!-- 공감 비공감 텍스트입니다 -->
-                    <div id="LikeDiv" style="width: 250px; margin: 10px auto;">
-                        <div style="float:left; width: 35%; text-align: center;">
+                    <div id="LikeDiv" class="Like-div">
+                        <div class="Like">
                             공감 : {{ like_count }}
                         </div>
-                        <div style="float: right; width: 40%; text-align: center;">
+                        <div class="Unlike">
                             비공감 : {{ unlike_count }}
                         </div>
                     </div>
