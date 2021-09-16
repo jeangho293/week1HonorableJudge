@@ -48,87 +48,9 @@
     <style>
         .mypageBtn {
             margin: 0 0 0 10px;
-            display: none;
-            cursor: pointer;
-        }
-        .mainpageBtn {
-            margin: 0 0 0 10px;
-            display: none;
             cursor: pointer;
         }
     </style>
-    <script>
-        let myPostList = null;
-        function mypage() {
-            $('.mypageBtn').hide()
-            $('.mainpageBtn').show()
-
-            $('#getJudge').hide()
-            $('#doJudge').hide()
-            $('#myJudge').show()
-            $('#myComment').show()
-
-            $('.bests').empty()
-            $('.lists').empty()
-            $('#pagination').empty()
-            $('#demo').empty()
-            $.ajax({
-                type: "GET",
-                url: `/posts?user_id=test`,
-                async: false,
-                data: {},
-                success: function (response) {
-                    myPostList = response['posts'];
-                    printMyPosts();
-                }
-            })
-        }
-
-        function to_main() {
-            window.location.href = "/"
-        }
-
-        function printMyPosts() {
-            $("#demo").pagination({
-                pageSize: "7",
-                dataSource: myPostList.reverse(),
-                callback: function (data, pagination) {
-                    let dataHtml = ``;
-
-                    for (let i = 0; i < data.length; i++) {
-                        (function (data) {
-
-                            var dataHtml =
-                                $(`<div class="clickPost">
-                                        <li
-                                          class="
-                                            list-group-item
-                                            d-flex
-                                            justify-content-between
-                                            align-items-center
-                                          "
-                                        >` +
-                                    ` <p id="allListText">${data["title"]}</p>` +
-                                    `<span class="badge badge-primary badge-pill">${data["like"]}</span>
-                                    </li>
-                            </div>`);
-
-                            dataHtml.unbind("click")
-                            dataHtml.bind("click", function () {
-                                onClickPost(data['_id'])
-                            })
-
-                            $("#pagination").append(dataHtml);
-                            dataHtml = '';
-                        })(data[i])
-
-                    }
-                },
-            });
-        }
-
-    </script>
-
 </head>
 
 <body>
@@ -139,8 +61,7 @@
                 class="btn btn-secondary loginBtn">로그인
         </button>
         <div class="username">어서오세요, {{ id }} 존경장님
-            <button class="mypageBtn btn-sm btn-outline-secondary" type="button" onclick="mypage()">마이페이지</button>
-            <button class="mainpageBtn btn-sm btn-outline-secondary" type="button" onclick="to_main()">메인페이지</button>
+            <button class="mypageBtn btn-sm btn-outline-secondary" type="button" onclick="window.location.href = '/mypage'">마이페이지</button>
             <button class="logoutBtn btn-sm btn-outline-secondary" type="button" onclick="logout()">로그아웃</button>
         </div>
     </div>
@@ -161,22 +82,6 @@
                 style="margin-top: 0px"
         >
             재판하기⚖️
-        </button>
-        <button
-                type="button"
-                class="btn btn-light btn-lg btn-block"
-                id="myJudge"
-                style="border: 1px solid black; margin-top: 0; display: none"
-        >
-            나의 재판
-        </button>
-        <button
-                type="button"
-                class="btn btn-dark btn-lg btn-block"
-                id="myComment"
-                style="margin-top: 0px; display: none"
-        >
-            --------
         </button>
     </div>
     <!-- 재판하기 리스트 출력 -->
@@ -246,7 +151,6 @@
         $('.loginBtn').hide()
         $('.username').show()
         $('.logoutBtn').show()
-        $('.mypageBtn').show()
     }
 
     // 로그아웃
@@ -303,21 +207,6 @@
         $(".post-container").show();
     });
 
-    // 나의 재판 불러오기
-    $("#myJudge").click(function () {
-        $('#pagination').empty()
-        $('#demo').empty()
-        $.ajax({
-            type: "GET",
-            url: `/posts?user_id=test`,
-            async: false,
-            data: {},
-            success: function (response) {
-                myPostList = response['posts'];
-                printMyPosts();
-            }
-        })
-    });
 
     // 날짜 데이터 변환
     function formatMonth(date) {
@@ -348,65 +237,44 @@
 
     }
 
+    //최신목록 출력
     function printPosts() {
         $("#demo").pagination({
             pageSize: "7",
             dataSource: postList.reverse(),
             callback: function (data, pagination) {
-                let dataHtml = ``;
-
-                /*$.each(data, function (index, item) {
-                    dataHtml +=
-                        `<div id="clickPost">
-                                    <li
-                                      class="
-                                        list-group-item
-                                        d-flex
-                                        justify-content-between
-                                        align-items-center
-                                      "
-                                    >` +
-                        ` <p id="allListText">${item["title"]}</p>` +
-                        `<span class="badge badge-primary badge-pill">${item["like"]}</span>
-                                </li>
-                        </div>`;
-                    if (!dataHtml) {
-                        return;
-                    }
-                    $("#clickPost").click(() => {
-                        onClickPost((item['_id']))
-                    })
-                    $("#pagination").html(dataHtml);
-                });*/
-
+                let allListData = ``;
+                if ($("#pagination").length) {
+                    $("#pagination").text('');
+                }
                 for (let i = 0; i < data.length; i++) {
                     (function (data) {
-
-                        var dataHtml =
+                        allListData =
                             $(`<div class="clickPost">
-                                    <li
-                                      class="
-                                        list-group-item
-                                        d-flex
-                                        justify-content-between
-                                        align-items-center
-                                      "
-                                    >` +
+                                            <li
+                                              class="
+                                                list-group-item
+                                                d-flex
+                                                justify-content-between
+                                                align-items-center
+                                              "
+                                            >` +
                                 ` <p id="allListText">${data["title"]}</p>` +
                                 `<span class="badge badge-primary badge-pill">${data["like"]}</span>
-                                </li>
-                        </div>`);
+                                        </li>
+                                </div>`);
 
-                        dataHtml.unbind("click")
-                        dataHtml.bind("click", function () {
+                        allListData.unbind("click")
+                        allListData.bind("click", function () {
                             onClickPost(data['_id'])
                         })
 
-                        $("#pagination").append(dataHtml);
-                        dataHtml = '';
+                        $("#pagination").append(allListData);
+                        allListData = '';
                     })(data[i])
 
                 }
+
             },
         });
 
@@ -415,33 +283,8 @@
         todayPosts.sort((a, b) => b.like - a.like)
         let todayData = '';
 
-
-        /*
         for (let i = 0; i < todayPosts.length; i++) {
-
-        if (i > 2) return;
-        todayData +=
-            `<div id="clickTodayPost">
-                                <li
-                                  class="
-                                    list-group-item
-                                    d-flex
-                                    justify-content-between
-                                    align-items-center
-                                  "
-                                >` +
-            `<p id="todayText">${todayPosts[i]["title"]}<p>` +
-            `<span class="badge badge-primary badge-pill">${todayPosts[i]["like"]}</span>
-                            </li>
-                    </div>`;
-        if (!todayData) {
-            return;
-        }
-        $("#clickTodayPost").click({id: todayPosts[i]['_id']}, onClickPost)
-        }
-         */
-        for (let i = 0; i < todayPosts.length; i++) {
-            if(i>2) break;
+            if (i > 2) break;
             (function (data) {
                 var dataHtml = '';
                 dataHtml =
@@ -507,8 +350,6 @@
             return false;
         });
         weeklyPosts.sort((a, b) => b.like - a.like)
-        console.log(weeklyPosts)
-
 
         for (let i = 0; i < weeklyPosts.length; i++) {
             if(i>2) break;

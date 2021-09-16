@@ -60,8 +60,10 @@ def mypage():
             comments = list(db.comment.find({'user_id': user["user_id"]}))
             for comment in comments:
                 comment["_id"] = str(comment["_id"])
+                post = db.post.find_one({"_id": ObjectId(comment["post_id"])})
+                comment["post_title"] = post["title"]
 
-            return render_template('index_temp_for_mypage.html', posts=posts, comments=comments, id=user["user_id"])
+            return render_template('mypage.html', posts=posts, comments=comments, id=user["user_id"])
         except jwt.ExpiredSignatureError:
             msg = '로그인 시간이 만료되었습니다.'
             return render_template('error.html', msg=msg)
