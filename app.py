@@ -29,10 +29,10 @@ def main():
             return render_template('index.html', posts=posts, id=user["user_id"])
         except jwt.ExpiredSignatureError:
             msg = '로그인 시간이 만료되었습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
         except jwt.DecodeError:
             msg = '로그인 정보가 존재하지 않습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
     else:
         return render_template('index.html', posts=posts)
 
@@ -66,10 +66,10 @@ def mypage():
             return render_template('mypage.html', posts=posts, comments=comments, id=user["user_id"], page_size=10)
         except jwt.ExpiredSignatureError:
             msg = '로그인 시간이 만료되었습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
         except jwt.DecodeError:
             msg = '로그인 정보가 존재하지 않습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
     else:
         return render_template('index.html')
 
@@ -161,10 +161,10 @@ def get_post():
             return render_template('post.html', post=post, comments=comments, like_count=like_count, unlike_count=unlike_count, user_id=user["user_id"])
         except jwt.ExpiredSignatureError:
             msg = '로그인 시간이 만료되었습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
         except jwt.DecodeError:
             msg = '로그인 정보가 존재하지 않습니다.'
-            return render_template('error.html', msg=msg)
+            return render_template('error/401.html', msg=msg), 401
     else:
         return render_template('post.html', post=post, comments=comments, like_count=like_count, unlike_count=unlike_count)
 
@@ -194,10 +194,10 @@ def add_post():
         return jsonify({'msg': '고민이 성공적으로 작성되었습니다.'})
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 @app.route('/view', methods=['POST'])
 def plus_post_view():
@@ -224,10 +224,10 @@ def load_update_page():
             return Response(response='해당 글에 대한 권한이 없습니다.', status=403)
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 @app.route('/post', methods=['PUT'])
 def update_post():
@@ -252,10 +252,10 @@ def update_post():
             return Response(response='해당 글에 대한 권한이 없습니다.', status=403)
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 @app.route('/post', methods=['DELETE'])
 def delete_post():
@@ -276,10 +276,10 @@ def delete_post():
 
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 @app.route('/comment', methods=['POST'])
 def add_comment():
@@ -306,10 +306,10 @@ def add_comment():
         return jsonify({'msg': '댓글이 작성되었습니다.'})
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 
 @app.route('/comment', methods=['DELETE'])
@@ -332,10 +332,10 @@ def delete_comment():
             return Response(response='해당 댓글에 대한 권한이 없습니다.', status=403)
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 @app.route('/like', methods=['POST'])
 def like_post():
@@ -377,10 +377,10 @@ def like_post():
         return jsonify({"result": "success", 'msg': 'updated', "like_count": like_count, "unlike_count": unlike_count})
     except jwt.ExpiredSignatureError:
         msg = '로그인 시간이 만료되었습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
     except jwt.DecodeError:
         msg = '로그인 정보가 존재하지 않습니다.'
-        return render_template('error.html', msg=msg)
+        return render_template('error/401.html', msg=msg), 401
 
 def is_user_id_exist(user_id):
     return db.users.find_one({'user_id': user_id}) is not None
@@ -400,7 +400,11 @@ def is_comment_owner(comment_id, user):
 
 @app.errorhandler(404)
 def page_not_found(e):
-    return render_template('404.html'), 404
+    return render_template('error/404.html'), 404
+
+@app.errorhandler(500)
+def page_not_found(e):
+    return render_template('error/500.html'), 500
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)
