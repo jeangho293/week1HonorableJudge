@@ -177,7 +177,8 @@ def add_post():
         user = db.users.find_one({"user_id": payload["user_id"]}, {'_id': False})
 
         title_receive = request.form['title']
-        content_receive = request.form['content'].replace('\n', '<br>')
+        content_receive = request.form['content']
+        content_receive = content_receive.replace('\n', '<br>')
         image_receive = request.form['image']
 
         doc = {
@@ -238,7 +239,8 @@ def update_post():
 
         post_id_receive = request.form['post_id']
         title_receive = request.form['title']
-        content_receive = request.form['content'].replace('\n', '<br>')
+        content_receive = request.form['content']
+        content_receive = content_receive.replace('\n', '<br>')
         image_receive = request.form['image']
 
         post_id_valid_check(post_id_receive)
@@ -288,7 +290,8 @@ def add_comment():
         user = db.users.find_one({"user_id": payload["user_id"]})
 
         post_id_receive = request.form['post_id']
-        comment_receive = request.form['comment'].replace('\n', '<br>')
+        comment_receive = request.form['comment']
+        comment_receive = comment_receive.replace('\n', '<br>')
         create_date_receive = request.form['create_date']
         post_id_valid_check(post_id_receive)
 
