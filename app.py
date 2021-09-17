@@ -270,6 +270,8 @@ def delete_post():
         post_id_valid_check(post_id_receive)
         if is_post_owner(post_id_receive, user):
             db.post.delete_one({'_id': ObjectId(post_id_receive)})
+            db.comment.delete_many({'post_id': post_id_receive})
+            db.likes.delete_many({'post_id': post_id_receive})
             return jsonify({'msg': '고민이 삭제되었습니다.'})
         else:
             return Response(response='해당 글에 대한 권한이 없습니다.', status=403)
