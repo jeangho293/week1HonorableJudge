@@ -56,7 +56,7 @@
 ### API
 기능 | URL | Method | Request | Response
 ---- | ---- | ---- | --------| ---------|
-로그인 | POST | /login | 뚝배기깹니다
+로그인 | POST | /login | <pre>{<br>   user_id:username,<br>   pw:password<br>}</pre>
 회원가입 | POST | /register | <pre>{<br>   user_id: user_name,<br>   pw: password<br>}</pre>
 회원가입 중복 확인 | POST | /register/check_dup | <pre>{<br>   username_give: username<br>}</pre>
 게시글 목록 리뷰 | GET | /posts |  | 전체 게시글 목록 
