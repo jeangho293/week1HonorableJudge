@@ -2,12 +2,19 @@
     font-family: "Stylish", sans-serif;
 }
 
+.background {
+    background-image: url("../static/main_background.jpg");
+    background-size: cover;
+}
+
 .container {
     display: block;
     width: 1200px;
     /* height: 2000px; */
-    margin: 30px auto;
-    /* background-color: rgba(128, 128, 128, 0.123); */
+    margin: 30px auto 0;
+    padding-bottom: 100px;
+     background-color: white;
+    border-radius: 30px;
 }
 
 /* .list-all {
@@ -25,6 +32,8 @@
     font-family: "Hahmlet", serif;
     /*background-image: url("../static/title.png");*/
     /*background-size: cover;*/
+    border-bottom: 5px outset rgba(28, 110, 164, 0.09);
+    border-radius: 14px;
 
 }
 

@@ -47,86 +47,90 @@
 </head>
 
 <body>
-<div class="sign">
-    <div class="logo">
-        <img src="../static/title_white.png">
-    </div>
-    <button onclick="window.location.replace('/login_main')" type="button"
-            class="btn btn-secondary loginBtn">로그인
-    </button>
-    <div class="username">어서오세요, {{ id }} 존경장님
-        <button class="logoutBtn btn btn-outline-light" type="button" onclick="window.location.href = '/mypage'">마이페이지</button>
-        <button class="logoutBtn btn btn-outline-light" type="button" onclick="logout()">로그아웃</button>
-    </div>
-</div>
-<div class="container">
-
-    <div class="title">재판실</div>
-    <div class="buttons">
-        <button
-                type="button"
-                class="btn btn-light btn-lg btn-block"
-                id="getJudge"
-                style="border: 1px solid black"
-        >
-            재판받기💦
-        </button>
-        <button
-                type="button"
-                class="btn btn-dark btn-lg btn-block"
-                id="doJudge"
-                style="margin-top: 0px"
-        >
-            재판하기⚖️
-        </button>
-    </div>
-    <!-- 재판하기 리스트 출력 -->
-    <div class="list-all">
-        <div class="newList">
-            <!-- <h3>재판 중</h3> -->
-            <ul class="list-group">
-                <div id="pagination"></div>
-                <div id="demo"></div>
-            </ul>
+<div class="background">
+    <div class="sign">
+        <div class="logo">
+            <img src="../static/title_white.png">
         </div>
-        <div class="bests">
+        <button onclick="window.location.replace('/login_main')" type="button"
+                class="btn btn-secondary loginBtn">로그인
+        </button>
+        <div class="username">어서오세요, {{ id }} 존경장님
+            <button class="logoutBtn btn btn-outline-light" type="button" onclick="window.location.href = '/mypage'">
+                마이페이지
+            </button>
+            <button class="logoutBtn btn btn-outline-light" type="button" onclick="logout()">로그아웃</button>
+        </div>
+    </div>
+    <div class="container">
+
+        <div class="title">재판실</div>
+        <div class="buttons">
             <button
                     type="button"
                     class="btn btn-light btn-lg btn-block"
-                    style="border: 1px solid black; cursor: default"
+                    id="getJudge"
+                    style="border: 1px solid black"
             >
-                오늘의 TOP3💢
+                재판받기💦
             </button>
             <button
                     type="button"
-                    class="btn btn-primary btn-lg btn-block"
-                    style="margin-top: 0px; border: 1px solid black; cursor: default"
+                    class="btn btn-dark btn-lg btn-block"
+                    id="doJudge"
+                    style="margin-top: 0px"
             >
-                이번 주 TOP3💥
+                재판하기⚖️
             </button>
         </div>
-        <div class="lists">
-            <ul class="list-group" id="todayJudge">
+        <!-- 재판하기 리스트 출력 -->
+        <div class="list-all">
+            <div class="newList">
+                <!-- <h3>재판 중</h3> -->
+                <ul class="list-group">
+                    <div id="pagination"></div>
+                    <div id="demo"></div>
+                </ul>
+            </div>
+            <div class="bests">
+                <button
+                        type="button"
+                        class="btn btn-light btn-lg btn-block"
+                        style="border: 1px solid black; cursor: default"
+                >
+                    오늘의 TOP3💢
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-primary btn-lg btn-block"
+                        style="margin-top: 0px; border: 1px solid black; cursor: default"
+                >
+                    이번 주 TOP3💥
+                </button>
+            </div>
+            <div class="lists">
+                <ul class="list-group" id="todayJudge">
 
-            </ul>
-            <ul class="list-group" id="weeklyJudge">
+                </ul>
+                <ul class="list-group" id="weeklyJudge">
 
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-    <!-- 재판받기 리스트 출력 -->
-    <div class="post-container">
-        <div class="inputs">
-            <input class="input-title" placeholder="제목을 입력해주세요"/>
-            <textarea
-                    class="input-content"
-                    placeholder="고민 내용을 입력해주세요"
-            ></textarea>
+        <!-- 재판받기 리스트 출력 -->
+        <div class="post-container">
+            <div class="inputs">
+                <input class="input-title" placeholder="제목을 입력해주세요" maxlength='50' ; type="text"/>
+                <textarea
+                        maxlength="3000"
+                        class="input-content"
+                        placeholder="고민 내용을 입력해주세요"
+                ></textarea>
+            </div>
+            <button type="button" class="onclickJudgeBtn btn btn-secondary btn-lg" onclick="post()">재판 접수</button>
         </div>
-        <button type="button" class="onclickJudgeBtn btn btn-secondary btn-lg" onclick="post()">재판 접수</button>
     </div>
 </div>
-
 <script>
     let postList = null;
     const userId = '{{ id }}';
