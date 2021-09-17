@@ -42,25 +42,13 @@
             return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
         }
 
-        //
-        function XSSCheck(str, level) {
-            if (level == undefined || level == 0) {
-                str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, "");
-            } else if (level != undefined && level == 1) {
-                str = str.replace(/\</g, "&lt;");
-                str = str.replace(/\>/g, "&gt;");
-            }
-            return str;
-        }
-
         // 수정완료 버튼 이벤트
         function EditPost() {
             if (confirm("재판 수정을 완료하시겠습니까?")) {
 
                 let PostID = '{{ post._id }}';
                 let PostTitle = $('#EditTitle').val();
-                let PostContent_temp = $('#EditContent').val();
-                const PostContent = XSSCheck(PostContent_temp,0);
+                let PostContent = $('#EditContent').val();
                 let PostImage = '{{ post.image }}'
 
                 $.ajax({

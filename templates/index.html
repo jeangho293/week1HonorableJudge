@@ -10,8 +10,7 @@
 
     <!-- kakaotalk meta tag -->
     <meta property="og:url" content="http://starandnight.shop">
-    <meta property="og:image"
-          content="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
+    <meta property="og:image" content="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
     <meta property="og:description" content="너의 고민, 우리가 재판해주지!">
     <meta property="og:type" content="website">
     <meta property="og:title" content="재판하는 존경장님">
@@ -181,27 +180,14 @@
         $(".post-container").hide();
     });
 
-    //
-    function XSSCheck(str, level) {
-        if (level == undefined || level == 0) {
-            str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, "");
-        } else if (level != undefined && level == 1) {
-            str = str.replace(/\</g, "&lt;");
-            str = str.replace(/\>/g, "&gt;");
-        }
-        return str;
-    }
-
     // 재판접수
-
     function post() {
         if (!userId) {
             alert("로그인이 필요합니다!")
             return;
         }
-        const title = $(".input-title").val()
-        const comment_temp = $(".input-content").val()
-        const comment = XSSCheck(comment_temp, 0);
+        let title = $(".input-title").val()
+        let comment = $(".input-content").val()
 
         if (!title.trim()) {
             alert('제목을 입력해주세요!')
