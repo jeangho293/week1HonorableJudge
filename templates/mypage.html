@@ -154,7 +154,7 @@
                             <div class="clickComment" onclick="onClickPost('{{ comment.post_id }}')">
                                 <li class="list-group-item d-flex justify-content-between align-items-center"
                                     value={{loop.index0//page_size}}>
-                                    <p class="allListTextCopy">{{ comment.comment }}</p>
+                                    <p class="allListTextCopy">{{ comment.comment | safe }}</p>
                                     <p class="allListTextCopy">{{ comment.post_title }}</p>
                                 </li>
                             </div>
