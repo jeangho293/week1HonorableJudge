@@ -1,18 +1,25 @@
 # 미니 프로젝트 : 재판하는 존경장님
-[**재판하는 존경장님**](http://starandnight.shop/)
-### 설명
-작품 설명: KBS 토크쇼 '안녕하세요' 프로그램을 오마주하여 만든 프로젝트로 각자의 사연을 게시하고 **다른 회원들도 공감되는 사연인지를 공유**하는 웹 사이트입니다.  
 
-**데모영상 유튜브 링크 (녹음/설명 없이 둘러보는 용도로 녹화해주세요)**
+##웹 사이트 URL : [**재판하는 존경장님**](http://starandnight.shop/)
+<hr>
 
+##설명
+###KBS 토크쇼 '안녕하세요' 프로그램을 오마주하여 만든 프로젝트로 각자의 사연을 게시하고 **다른 회원들도 공감되는 사연인지를 공유**하는 웹 사이트입니다.  
 
+<hr>
 
-**데모영상 썸네일 이미지 (280*160 사이즈를 권장합니다)**
+##Youtube URL : [**재판하는 존경장님**](https://www.youtube.com/watch?v=ssS0QL75v0g)
 
+<img width="140" alt="썸네일" src="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
+<span style="margin-left: 10px; color: gainsboro;">(썸네일)</span>
 
-[**github 주소 (public)**](https://github.com/jeangho293/_week1)
+<hr>
 
-### 페이지 설계
+##Github URL : [**github 주소 (public)**](https://github.com/jeangho293/_week1)
+
+<hr>
+
+## 페이지 설계
 
 - 메인 페이지
   1. 전체 재판 목록 확인
@@ -51,9 +58,10 @@
 - 에러 페이지
   1. 잘못된 URL로 접근 시 404 페이지
   2. 토큰 시간이 만료되거나 토큰 정보가 잘못되어 있으면 401 페이지
+   
+<hr>
 
-    
-### API
+## API
 기능 | URL | Method | Request | Response
 ---- | ---- | ---- | --------| ---------|
 로그인 | POST | /login | <pre>{<br>   user_id:username,<br>   pw:password<br>}</pre>
