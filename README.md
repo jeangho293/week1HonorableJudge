@@ -66,7 +66,7 @@
      - 클릭하면 해당 재판의 상세 페이지로 이동
      - 한 페이지에 10개 씩 출력
 
-<img width="700" alt="https://user-images.githubusercontent.com/71538344/133760716-914d52c2-cdbd-46f1-aa31-ccc0088d2bb6.png" />
+<img width="700" alt="로그인화면" src="https://user-images.githubusercontent.com/71538344/133760716-914d52c2-cdbd-46f1-aa31-ccc0088d2bb6.png">
 
 - 로그인 페이지
   1. 로그인 또는 회원가입
@@ -81,7 +81,7 @@
 
 ## 모바일 페이지 
 
-<img width="200" alt="모바일화면" src="https://user-images.githubusercontent.com/71538344/133760716-914d52c2-cdbd-46f1-aa31-ccc0088d2bb6.png" />
+<img width="200" alt="모바일화면" src="https://user-images.githubusercontent.com/71538344/133756747-4ac06d67-668a-4b6d-af8b-e640c1459297.gif" />
 
 <hr>
 
