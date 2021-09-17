@@ -105,7 +105,7 @@
                     data: {post_id: PostID, comment_id: CommentID},
                     success: function (response) {
                         alert(response['msg'])
-                        $('#ReplyDiv').load( window.location.href + " #ReplyDiv")
+                        $('#ReplyDiv').load(window.location.href + " #ReplyDiv")
                     },
                     error: function (e) {
                         alert(e.responseText);
@@ -180,7 +180,7 @@
 </head>
 <body>
 <div>
-    <section class="hero is-small is-primary">
+    <section class="hero is-small is-primary" style="background: black;">
         <div class="hero-body">
 
             <!-- 재판실로 돌아가는 버튼 -->
@@ -195,136 +195,137 @@
             </div>
         </div>
     </section>
+    <div class="page")">
+        <div class="whole_post_page">
+            <div class="article">
+                <!-- 글 정보 -->
+                <div class="article_info" id="ArticleInfo">
+                    <div class="article_author">
+                        <span>글쓴이: <strong>{{ post.user_id }}</strong></span>
+                    </div>
+                    <div class="article_data">
+                        {% set date =  (post.postDate | string).split(' ') %}
+                        {% set today = date[1].split(':') %}
+                        <span>{{ date[0] }}  {{ today[0] }}:{{ today[1] }}</span>
+                    </div>
+                    <div class="article_hit">
+                        <span>조회: <strong>{{ post.view }}</strong> &nbsp;&nbsp;&nbsp; 추천: <strong>{{ like_count }}</strong></span>
+                    </div>
+                </div>
 
-    <div class="whole_post_page">
-        <div class="article">
-            <!-- 글 정보 -->
-            <div class="article_info" id="ArticleInfo">
-                <div class="article_author">
-                    <span>글쓴이: <strong>{{ post.user_id }}</strong></span>
+                <!-- 글 제목 -->
+                <div class="article-title">
+                    <div style="font-size: 20px; margin-top: 10px; padding-bottom: 0px;">
+                        {{ post.title }}
+                    </div>
+                    <hr>
                 </div>
-                <div class="article_data">
-                    {% set date =  (post.postDate | string).split(' ') %}
-                    {% set today = date[1].split(':') %}
-                    <span>{{ date[0] }}  {{ today[0] }}:{{ today[1] }}</span>
-                </div>
-                <div class="article_hit">
-                    <span>조회: <strong>{{ post.view }}</strong> &nbsp;&nbsp;&nbsp; 추천: <strong>{{ like_count }}</strong></span>
-                </div>
-            </div>
 
-            <!-- 글 제목 -->
-            <div class="article-title">
-                <div style="font-size: 20px; margin-top: 10px; padding-bottom: 0px;">
-                    {{ post.title }}
+
+                <!-- 글 상세내용 입니다 -->
+                <div class="article-content">
+                    {{ post.content | safe }}
                 </div>
                 <hr>
-            </div>
 
-
-            <!-- 글 상세내용 입니다 -->
-            <div class="article-content">
-                {{ post.content | safe }}
-            </div>
-            <hr>
-
-            <!-- 재판 수정, 재판 삭제 -->
-            <div class="delete-edit-div">
-                <div class="delete-edit">
-                    <button class="button is-warning edit-button" onclick="EditPostButton()">
-                        <span><strong>재판 수정</strong></span>
-                    </button>
-                    <button class="button is-danger" onclick="DeletePost()" value="{{ post._id }}" id="DeletePost">
-                        <span class="delete-button-text"><strong>재판 삭제</strong></span>
-                    </button>
+                <!-- 재판 수정, 재판 삭제 -->
+                <div class="delete-edit-div">
+                    <div class="delete-edit">
+                        <button class="button is-warning edit-button" onclick="EditPostButton()">
+                            <span><strong>재판 수정</strong></span>
+                        </button>
+                        <button class="button is-danger" onclick="DeletePost()" value="{{ post._id }}" id="DeletePost">
+                            <span class="delete-button-text"><strong>재판 삭제</strong></span>
+                        </button>
+                    </div>
                 </div>
-            </div>
 
 
-            <!-- 공감 비공감 입니다 ------------------------------------------->
-            <div class="Like-Unlike">
-                <div class="Like-Unlike-div">
-                    <button class="LikeButton-border" onclick="PushLikeButton()"
-                            value="like {{ post._id }}" id="LikeButton">
-                        <img src="/static/good_thumb.png" class="LikeButton-image">
-                    </button>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button class="UnlikeButton-border" onclick="PushUnLikeButton()"
-                            id="UnLikeButton" value="unlike {{ post._id }}">
-                        <img src="/static/bad_thumb.png" class="UnlikeButton-image">
-                    </button>
+                <!-- 공감 비공감 입니다 ------------------------------------------->
+                <div class="Like-Unlike">
+                    <div class="Like-Unlike-div">
+                        <button class="LikeButton-border" onclick="PushLikeButton()"
+                                value="like {{ post._id }}" id="LikeButton">
+                            <img src="/static/good_thumb.png" class="LikeButton-image">
+                        </button>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <button class="UnlikeButton-border" onclick="PushUnLikeButton()"
+                                id="UnLikeButton" value="unlike {{ post._id }}">
+                            <img src="/static/bad_thumb.png" class="UnlikeButton-image">
+                        </button>
 
-                    <!-- 공감 비공감 텍스트입니다 -->
-                    <div id="LikeDiv" class="Like-div">
-                        <div class="Like">
-                            공감 : {{ like_count }}
-                        </div>
-                        <div class="Unlike">
-                            비공감 : {{ unlike_count }}
+                        <!-- 공감 비공감 텍스트입니다 -->
+                        <div id="LikeDiv" class="Like-div">
+                            <div class="Like">
+                                공감 : {{ like_count }}
+                            </div>
+                            <div class="Unlike">
+                                비공감 : {{ unlike_count }}
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 댓글 리스트 입니다 -->
-            <div class="reply-list" id="ReplyDiv">
-                <p>댓글 수 : <strong> {{ comments | length }}</strong></p>
-                <hr>
-                <div>
-                    <ul class="reply-ul" id="ReplyList">
-                        {% for comment in comments %}
-                            <li class="reply-data">
-                                <div style="height: 35px;">
-                                    <div class="reply-userid-div">
+                <!-- 댓글 리스트 입니다 -->
+                <div class="reply-list" id="ReplyDiv">
+                    <p>댓글 수 : <strong> {{ comments | length }}</strong></p>
+                    <hr>
+                    <div>
+                        <ul class="reply-ul" id="ReplyList">
+                            {% for comment in comments %}
+                                <li class="reply-data">
+                                    <div style="height: 35px;">
+                                        <div class="reply-userid-div">
                                 <span class="reply-userid">
                                     {{ comment.user_id }}
                                 </span>
-                                        <span class="reply-comment-date">
+                                            <span class="reply-comment-date">
                                     &nbsp;({{ comment.create_date }})
                                 </span>
-                                    </div>
-                                    <div class=reply-delete-div>
-                                        <button class="button is-light" onclick="DeleteReply(this.value)"
-                                                id="Comment_number" value="{{ comment._id }}">
+                                        </div>
+                                        <div class=reply-delete-div>
+                                            <button class="button is-light" onclick="DeleteReply(this.value)"
+                                                    id="Comment_number" value="{{ comment._id }}">
                                             <span class="reply-delete-font">
                                                 <strong>삭제</strong>
                                             </span>
-                                        </button>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div>
-                                    {{ comment.comment | safe }}
-                                </div>
-                                <hr>
-                            </li>
-                        {% endfor %}
+                                    <div>
+                                        {{ comment.comment | safe }}
+                                    </div>
+                                    <hr>
+                                </li>
+                            {% endfor %}
 
-                    </ul>
+                        </ul>
+                    </div>
                 </div>
-            </div>
 
-            <!--  댓글 달기  -->
-            <article class="media">
-                <div class="media-content">
-                    <div class="field">
-                        <p class="control">
+                <!--  댓글 달기  -->
+                <article class="media">
+                    <div class="media-content">
+                        <div class="field">
+                            <p class="control">
 
                             <textarea rows="3" class="textarea" placeholder="댓글을 달아주세요!"
                                       id="ReplyComment"></textarea>
-                        </p>
-                    </div>
-                    <nav class="level">
-                        <div class="level-left">
-                            <div class="level-item">
-                                <button class="button is-info" onclick="PostReplyButton()" value="{{ post._id }}"
-                                        id="ReplyButton">
-                                    댓글 작성
-                                </button>
-                            </div>
+                            </p>
                         </div>
-                    </nav>
-                </div>
-            </article>
+                        <nav class="level">
+                            <div class="level-left">
+                                <div class="level-item">
+                                    <button class="button is-info" onclick="PostReplyButton()" value="{{ post._id }}"
+                                            id="ReplyButton">
+                                        댓글 작성
+                                    </button>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
         </div>
     </div>
 </div>

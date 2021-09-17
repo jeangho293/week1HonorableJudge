@@ -79,16 +79,6 @@
     </script>
 
     <style>
-        .top_banner_title {
-            font-family: 'Black Han Sans', sans-serif;
-            color: black;
-            font-size: 50px;
-        }
-
-        .post_title {
-            width: 60%;
-        }
-
         .edit_button {
             margin-right: 10px;
         }
@@ -100,52 +90,52 @@
 </head>
 <body>
 <div>
-    <section class="hero is-primary">
+    <section class="hero is-primary" style="background: black;">
         <div class="hero-body" style="text-align: center;">
             <p class="title">
-                <span style="font-size: 50px; color: black;">재판 수정</span>
+                <span style="font-size: 50px; color: white;">재판 수정</span>
             </p>
         </div>
     </section>
-
-    <div class="whole_post_page">
-        <div class="article">
-            <!-- 글 정보 -->
-            <div class="article_info" id="ArticleInfo">
-                <div class="article_author">
-                    <span>글쓴이: <strong>{{ post.user_id }}</strong></span>
+    <div style="background-image: url('/static/main_background.jpg')">
+        <div class="whole_post_page">
+            <div class="article">
+                <!-- 글 정보 -->
+                <div class="article_info" id="ArticleInfo">
+                    <div class="article_author">
+                        <span>글쓴이: <strong>{{ post.user_id }}</strong></span>
+                    </div>
+                    <div class="article_data">
+                        {% set date = (post.postDate | string).split(' ') %}
+                        {% set today = date[1].split(':') %}
+                        <span>{{ date[0] }}  {{ today[0] }}:{{ today[1] }}</span>
+                    </div>
+                    <div class="article_hit">
+                        <span>조회: <strong>{{ post.view }}</strong> &nbsp;&nbsp;&nbsp; 추천: <strong>0</strong></span>
+                    </div>
                 </div>
-                <div class="article_data">
-                    {% set date = (post.postDate | string).split(' ') %}
-                    {% set today = date[1].split(':') %}
-                    <span>{{ date[0] }}  {{ today[0] }}:{{ today[1] }}</span>
-                </div>
-                <div class="article_hit">
-                    <span>조회: <strong>{{ post.view }}</strong> &nbsp;&nbsp;&nbsp; 추천: <strong>0</strong></span>
-                </div>
-            </div>
 
-            <!-- 글 제목 -->
-            <div class="article-title" style="margin-top: 30px;">
-                <input class="input" type="text" value="{{ post.title }}" id="EditTitle" maxlength="30">
-            </div>
-            <hr>
+                <!-- 글 제목 -->
+                <div class="article-title" style="margin-top: 30px;">
+                    <input class="input" type="text" value="{{ post.title }}" id="EditTitle" maxlength="30">
+                </div>
+                <hr>
 
-            <!-- 글 상세내용 입니다 -->
-            <div class="article-content">
+                <!-- 글 상세내용 입니다 -->
+                <div class="article-content">
                 <textarea class="textarea" rows="20"
                           id="EditContent" maxlength="3000">{{ post.content | replace('<br>', '\n') }}</textarea>
+                </div>
+                <hr>
+                <div style="text-align: center;">
+                    <button class="button is-primary edit_button" onclick="EditPost()">수정 완료</button>
+                    <button class="button is-danger cancel_button" onclick="Cancel()">수정 취소</button>
+                </div>
             </div>
-            <hr>
-            <div style="text-align: center;">
-                <button class="button is-primary edit_button" onclick="EditPost()">수정 완료</button>
-                <button class="button is-danger cancel_button" onclick="Cancel()">수정 취소</button>
+            <div>
             </div>
-        </div>
-        <div>
         </div>
     </div>
-
 </div>
 </body>
 </html>
