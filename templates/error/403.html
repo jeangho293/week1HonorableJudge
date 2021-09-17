@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Server Error</title>
+    <title>Forbidden</title>
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
       integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
       crossorigin="anonymous"
     />
-    <!-- JS -->
+        <!-- JS -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 
@@ -34,22 +34,17 @@
         function to_main() {
             window.location.href = "/"
         }
-
-        function sign_out() {
-            $.removeCookie('mytoken', { path: "/" });
-            window.location.href = "/"
-        }
     </script>
 </head>
 <body>
 <div class="center">
     <div class="code">
-        <h1 class="code">Error</h1>
+        <h1 class="code">403 Forbidden</h1>
     </div>
     <div class="text">
-      <p>{{ msg }}</p>
+        <p>허용되지 않은 요청입니다.</p>
     </div>
-    <button onclick="sign_out()" type="button" class="btn btn-light, home_button">메인으로 돌아가기</button>
+    <button onclick="to_main()" type="button" class="btn btn-light, home_button">메인으로 돌아가기</button>
 </div>
 </body>
 </html>
