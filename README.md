@@ -54,3 +54,18 @@
 
     
 ### API
+기능 | URL | Method | Request | Response
+---- | ---- | ---- | --------| ---------|
+로그인 | POST | /login | 뚝배기깹니다
+회원가입 | POST | /register | <pre>{<br>   user_id: user_name,<br>   pw: password<br>}</pre>
+회원가입 중복 확인 | POST | /register/check_dup | <pre>{<br>   username_give: username<br>}</pre>
+게시글 목록 리뷰 | GET | /posts |  | 전체 게시글 목록 
+게시글 상세 내용 | GET | /post | | 해당 게시글 Objectid, 게시글 DB
+게시글 작성 | POST | /post | <pre>{<br>   title: title,<br>   content: comment,<br>   image: ''<br>}</pre>
+조회수 증가 | POST | /view | <pre>{<br>   post_id: id<br>}</pre>
+댓글 작성 | POST |  | <pre>{<br>   post_id: button_value,<br>   comment: reply,<br>   create_date: Today<br>}</pre>
+게시글 삭제 | DELETE | /post | <pre>{<br>   post_id: PostID<br>}</pre>
+공감 비공감 이벤트 | POST | /like | <pre>{<br>   post_id: button_id,<br>   action: button_action<br>}</pre>
+댓글 제거 | DELETE | /comment | <pre>{<br>   post_id: PostID,<br>   comment_id: CommentID<br>}</pre>
+게시판 수정 | PUT | /post | <pre>{<br>   post_id: PostID,<br>   title: PostTitle,<br>   content: PostContent,<br>   image: PostImage<br>}</pre>
+
