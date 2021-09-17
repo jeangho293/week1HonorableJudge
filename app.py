@@ -177,7 +177,7 @@ def add_post():
         user = db.users.find_one({"user_id": payload["user_id"]}, {'_id': False})
 
         title_receive = request.form['title']
-        content_receive = request.form['content']
+        content_receive = request.form['content'].replace('\n', '<br>')
         image_receive = request.form['image']
 
         doc = {
