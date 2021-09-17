@@ -1,8 +1,6 @@
-
 # 미니 프로젝트 : 재판하는 존경장님
 
-##웹 사이트 URL : <a href="http://starandnight.shop/" target="_blank">재판하는 존경장님</a>
-
+##웹 사이트 URL : [**재판하는 존경장님**](http://starandnight.shop/)
 <hr>
 
 ##설명
@@ -10,14 +8,14 @@
 
 <hr>
 
-##Youtube URL : <a href="https://www.youtube.com/watch?v=ssS0QL75v0g" target="_blank">재판하는 존경장님</a>
+##Youtube URL : [**재판하는 존경장님**](https://www.youtube.com/watch?v=ssS0QL75v0g)
 
 <img width="140" alt="썸네일" src="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
 <span style="margin-left: 10px; color: gainsboro;">(썸네일)</span>
 
 <hr>
 
-##Github URL : <a href="https://github.com/jeangho293/_week1" target="_blank">재판하는 존경장님</a>
+##Github URL : [**github 주소 (public)**](https://github.com/jeangho293/_week1)
 
 <hr>
 
