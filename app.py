@@ -238,7 +238,7 @@ def update_post():
 
         post_id_receive = request.form['post_id']
         title_receive = request.form['title']
-        content_receive = request.form['content']
+        content_receive = request.form['content'].replace('\n', '<br>')
         image_receive = request.form['image']
 
         post_id_valid_check(post_id_receive)
@@ -288,7 +288,7 @@ def add_comment():
         user = db.users.find_one({"user_id": payload["user_id"]})
 
         post_id_receive = request.form['post_id']
-        comment_receive = request.form['comment']
+        comment_receive = request.form['comment'].replace('\n', '<br>')
         create_date_receive = request.form['create_date']
         post_id_valid_check(post_id_receive)
 
