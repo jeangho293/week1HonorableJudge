@@ -17,7 +17,6 @@
 
 ## Github URL : [**github 주소 (public)**](https://github.com/jeangho293/_week1)
 
-<hr>
 
 ## 페이지 설계
 
