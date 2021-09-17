@@ -77,7 +77,7 @@
 게시판 수정 | PUT | /post | <pre>{<br>   post_id: PostID,<br>   title: PostTitle,<br>   content: PostContent,<br>   image: PostImage<br>}</pre>
 
 <hr>
-
+<pre>
 JWT vs 세션/쿠키
 공통점 : 둘다 애플리케이션에서 인증을 하기위해 사용되며 HTTP 헤더에 세션ID나 토큰을 실어서 서버로 보내준다는 것은 동일하다.
 차이점 : 세션/쿠키 방식은 사용자의 정보를 저장하는 세션 저장소를 필요로 하는 반면 JWT는 세션 저장소 없이 토큰 안에 유저의 정보들이 넣는다. 즉, 인증을 위해 정보를 암호화 하냐(JWT) 별도의 저장소를 이용하냐(세션/쿠키)의 차이가 있다.
@@ -89,3 +89,4 @@ JWT의 단점
 이 문제를 해결하기 위해서는 기존의 Access Token의 유효기간을 짧게 가져가고 Refresh Token이라는 새로운 토큰을 발급한다. 이러면 Access Token을 탈취당하더라도 상대적으로 피해를 줄일 수 있다.
 유저의 중요한 정보들은 Payload에 넣을 수 없기 때문에 (Payload는 탈취당하면 충분히 복호화될 수 있다.) Payload 정보가 제한적이다.
 토큰은 세션/쿠키 방식에 비해 크기가 크다.
+</pre>
