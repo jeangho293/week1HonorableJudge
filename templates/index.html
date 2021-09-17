@@ -52,18 +52,22 @@
         <div class="logo">
             <img src="../static/title_white.png">
         </div>
+
         <button onclick="window.location.replace('/login_main')" type="button"
                 class="btn btn-secondary loginBtn">로그인
         </button>
+
         <div class="username">어서오세요, {{ id }} 존경장님
-            <button class="logoutBtn btn btn-outline-light" type="button" onclick="window.location.href = '/mypage'">
-                마이페이지
-            </button>
-            <button class="logoutBtn btn btn-outline-light" type="button" onclick="logout()">로그아웃</button>
+            <div class="navBtns">
+                <button class="logoutBtn btn btn-outline-light" type="button"
+                        onclick="window.location.href = '/mypage'">
+                    마이페이지
+                </button>
+                <button class="logoutBtn btn btn-outline-light" type="button" onclick="logout()">로그아웃</button>
+            </div>
         </div>
     </div>
     <div class="container">
-
         <div class="title">재판실</div>
         <div class="buttons">
             <button
@@ -93,29 +97,33 @@
                 </ul>
             </div>
             <div class="bests">
-                <button
-                        type="button"
-                        class="btn btn-light btn-lg btn-block"
-                        style="border: 1px solid black; cursor: default"
-                >
-                    오늘의 TOP3💢
-                </button>
-                <button
-                        type="button"
-                        class="btn btn-primary btn-lg btn-block"
-                        style="margin-top: 0px; border: 1px solid black; cursor: default"
-                >
-                    이번 주 TOP3💥
-                </button>
-            </div>
-            <div class="lists">
-                <ul class="list-group" id="todayJudge">
+                <div class="todayList">
+                    <button
+                            type="button"
+                            class="btn btn-light btn btn-block"
+                            style="border: 1px solid black; cursor: default"
+                    >
+                        오늘의 TOP3💢
+                    </button>
+                    <ul class="list-group" id="todayJudge">
 
-                </ul>
-                <ul class="list-group" id="weeklyJudge">
+                    </ul>
+                </div>
+                <div class="weeklyList">
+                    <button
+                            type="button"
+                            class="btn btn-primary btn btn-block"
+                            style="margin-top: 0px; border: 1px solid black; cursor: default"
+                    >
+                        이번 주 TOP3💥
+                    </button>
+                    <ul class="list-group" id="weeklyJudge">
 
-                </ul>
+                    </ul>
+
+                </div>
             </div>
+
         </div>
         <!-- 재판받기 리스트 출력 -->
         <div class="post-container">
@@ -149,8 +157,8 @@
     //로그인 했을 경우
     if (userId) {
         $('.loginBtn').hide()
-        $('.username').show()
-        $('.logoutBtn').show()
+        $('.username').css('display', 'flex');
+        $('.logoutBtn').css('display', 'flex');
     }
 
     // 로그아웃

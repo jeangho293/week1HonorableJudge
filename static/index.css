@@ -9,19 +9,23 @@
 
 .container {
     display: block;
-    width: 1200px;
+    width: 100vw;
     /* height: 2000px; */
     margin: 30px auto 0;
     padding-bottom: 100px;
-     background-color: white;
+    background-color: white;
     border-radius: 30px;
 }
 
-/* .list-all {
-  display: none;
-} */
+.list-all {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: auto;
+    width: 100%;
+}
 
-.container > .title {
+.container > .title, .title_mypage {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,7 +43,7 @@
 
 .container .buttons {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     height: 100px;
     width: 90%;
     margin: auto;
@@ -47,9 +51,14 @@
 
 .container .bests {
     display: flex;
-    justify-content: space-between;
-    height: 50px;
     width: 90%;
+    margin: auto;
+}
+
+.todayList, .weeklyList {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
     margin: auto;
 }
 
@@ -68,15 +77,6 @@
     width: 100%;
 }
 
-.container .lists {
-    display: flex;
-    width: 90%;
-    margin: auto;
-}
-
-.container .lists .list-group {
-    width: 50%;
-}
 
 .post-container {
     display: none;
@@ -148,6 +148,8 @@
 }
 
 .username {
+    /*display: flex;*/
+    /*flex-direction: row;*/
     display: none;
     align-items: center;
     float: right;
@@ -155,7 +157,7 @@
     font-family: "Hahmlet", serif;
     font-size: 20px;
     color: white;
-    padding: 23px 0 0 10px;
+    padding: 5px 0 0 10px;
 }
 
 .logoutBtn {
@@ -192,3 +194,60 @@ p {
     font-size: 24px;
 }
 
+
+@media screen and (max-width: 655px) {
+    .sign {
+        flex-direction: column;
+        height: 150px;
+    }
+
+    .username {
+        display: none;
+        flex-direction: column;
+        padding-bottom: 20px;
+        background-color: rgb(101, 101, 101);
+    }
+
+    .container {
+        border-radius: 0;
+    }
+
+    .background {
+        background-image: none;
+    }
+
+    .container > .title {
+        font-size: 50px;
+    }
+
+    .container > .title_mypage {
+        font-size: 30px;
+    }
+
+    .logo > img {
+        width: 100vw;
+    }
+
+    .container .bests {
+        flex-direction: column;
+        margin: 0 0 0 20px;
+    }
+
+    .todayList, .weeklyList {
+        width: 100%;
+    }
+
+    .navBtns {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        margin-right: 20px;
+    }
+
+    .loginBtn {
+        width: 100%;
+        font-size: 1.5rem;
+        border-radius: 0 0 0 0;
+    }
+
+}
