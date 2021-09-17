@@ -6,7 +6,8 @@
 
     <!-- kakaotalk meta tag -->
     <meta property="og:url" content="http://starandnight.shop">
-    <meta property="og:image" content="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
+    <meta property="og:image"
+          content="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
     <meta property="og:description" content="너의 고민, 우리가 재판해주지!">
     <meta property="og:type" content="website">
     <meta property="og:title" content="재판하는 존경장님">
@@ -75,9 +76,21 @@
 
         }
 
+        //
+        function XSSCheck(str, level) {
+            if (level == undefined || level == 0) {
+                str = str.replace(/\<|\>|\"|\'|\%|\;|\(|\)|\&|\+|\-/g, "");
+            } else if (level != undefined && level == 1) {
+                str = str.replace(/\</g, "&lt;");
+                str = str.replace(/\>/g, "&gt;");
+            }
+            return str;
+        }
+
         // 댓글 작성버튼에 대한 이벤트
         function PostReplyButton() {
-            let reply = $('#ReplyComment').val();
+            let reply_temp = $('#ReplyComment').val();
+            const reply = XSSCheck(reply_temp, 0)
             let button_value = $('#ReplyButton').val();
             let Today = TodayDate();
 
