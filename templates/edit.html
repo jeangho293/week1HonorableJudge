@@ -127,14 +127,14 @@
 
             <!-- 글 제목 -->
             <div class="article-title" style="margin-top: 30px;">
-                <input class="input" type="text" value="{{ post.title }}" id="EditTitle">
+                <input class="input" type="text" value="{{ post.title }}" id="EditTitle" maxlength="30">
             </div>
             <hr>
 
             <!-- 글 상세내용 입니다 -->
             <div class="article-content">
                 <textarea class="textarea" rows="20"
-                          id="EditContent">{{ post.content | replace('<br>', '\n') }}</textarea>
+                          id="EditContent" maxlength="3000">{{ post.content | replace('<br>', '\n') }}</textarea>
             </div>
             <hr>
             <div style="text-align: center;">

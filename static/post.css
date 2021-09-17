@@ -57,11 +57,13 @@
     width: 100%;
     height: 50px;
     border: 10px;
+    word-break:break-all;
 }
 
 .article-content {
     width: 800px;
-    height: 500px;
+    min-height: 500px;
+    word-break:break-all;
 }
 
 .reply-data {
