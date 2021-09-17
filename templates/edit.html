@@ -54,8 +54,8 @@
                 $.ajax({
                     type: 'PUT',
                     url: '/post',
-                    data: {post_id: PostID, title: PostTitle, content: PostContent , image: PostImage},
-                    success : function (response) {
+                    data: {post_id: PostID, title: PostTitle, content: PostContent, image: PostImage},
+                    success: function (response) {
                         alert(response['msg']);
                         window.location.href = '/post?post_id={{ post._id }}';
                     },
@@ -63,8 +63,7 @@
                         alert(e.responseText);
                     }
                 })
-            }
-            else {
+            } else {
                 return;
             }
         }
@@ -73,8 +72,7 @@
         function Cancel() {
             if (confirm("수정을 취소하시겠습니까?") == true) {
                 window.location.href = '/post?post_id={{ post._id }}';
-            }
-            else {
+            } else {
                 return;
             }
         }
@@ -84,8 +82,9 @@
         .top_banner_title {
             font-family: 'Black Han Sans', sans-serif;
             color: black;
-            font-size: 70px;
+            font-size: 50px;
         }
+
         .post_title {
             width: 60%;
         }
@@ -114,7 +113,7 @@
             <!-- 글 정보 -->
             <div class="article_info" id="ArticleInfo">
                 <div class="article_author">
-                    <span>글쓴이: <strong>{{post.user_id}}</strong></span>
+                    <span>글쓴이: <strong>{{ post.user_id }}</strong></span>
                 </div>
                 <div class="article_data">
                     {% set date = (post.postDate | string).split(' ') %}
@@ -134,16 +133,16 @@
 
             <!-- 글 상세내용 입니다 -->
             <div class="article-content">
-                <textarea class="textarea" rows="20" id="EditContent">{{ post.content }}</textarea>
+                <textarea class="textarea" rows="20"
+                          id="EditContent">{{ post.content | replace('<br>', '\n') }}</textarea>
             </div>
             <hr>
             <div style="text-align: center;">
-                <button class="button is-primary edit_button"  onclick="EditPost()">수정 완료</button>
+                <button class="button is-primary edit_button" onclick="EditPost()">수정 완료</button>
                 <button class="button is-danger cancel_button" onclick="Cancel()">수정 취소</button>
             </div>
         </div>
         <div>
-
         </div>
     </div>
 
