@@ -81,7 +81,7 @@
 
 ## 모바일 페이지 
 
-<img width="200" alt="모바일화면" src="https://user-images.githubusercontent.com/71538344/133756747-4ac06d67-668a-4b6d-af8b-e640c1459297.gif" />
+<img width="200" alt="모바일화면" src="https://user-images.githubusercontent.com/71538344/133760716-914d52c2-cdbd-46f1-aa31-ccc0088d2bb6.png" />
 
 <hr>
 
