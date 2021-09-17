@@ -1,21 +1,21 @@
 # 미니 프로젝트 : 재판하는 존경장님
 
-##웹 사이트 URL : [**재판하는 존경장님**](http://starandnight.shop/) 
+웹 사이트 URL[**재판하는 존경장님**](http://starandnight.shop/) 
 <hr>
 
-##설명
+설명
 ###KBS 토크쇼 '안녕하세요' 프로그램을 오마주하여 만든 프로젝트로 각자의 사연을 게시하고 **다른 회원들도 공감되는 사연인지를 공유**하는 웹 사이트입니다.  
 
 <hr>
 
-##Youtube URL : [**재판하는 존경장님**](https://www.youtube.com/watch?v=ssS0QL75v0g)
+Youtube URL : [**재판하는 존경장님**](https://www.youtube.com/watch?v=ssS0QL75v0g)
 
 <img width="140" alt="썸네일" src="https://user-images.githubusercontent.com/84619866/133743855-03d1d3cd-b89c-409a-92fe-9aeb455c75a5.png">
 <span style="margin-left: 10px; color: gainsboro;">(썸네일)</span>
 
 <hr>
 
-##Github URL : [**github 주소 (public)**](https://github.com/jeangho293/_week1)
+Github URL : [**github 주소 (public)**](https://github.com/jeangho293/_week1)
 
 <hr>
 
