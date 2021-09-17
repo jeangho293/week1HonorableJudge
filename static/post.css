@@ -7,7 +7,7 @@
 
 
 .whole_post_page {
-    width: 1000px;
+    width: 70vw;
     margin: auto;
     padding: 30px;
 
@@ -20,7 +20,7 @@
 }
 
 .article {
-    width: 900px;
+    width: 100%;
     margin: 20px auto;
     padding: 50px;
     background: white;
@@ -30,9 +30,9 @@
 }
 
 .article_info {
-    background: beige;
+    background-color: beige;
 
-    height: 30px;
+    min-height: 30px;
     text-align: center;
 
     border-top-left-radius: 10px;
@@ -61,14 +61,14 @@
     width: 100%;
     height: 50px;
     border: 10px;
-    word-break:break-all;
+    word-break: break-all;
 }
 
 .article-content {
     margin-top: 20px;
-    width: 800px;
+    width: 100%;
     min-height: 500px;
-    word-break:break-all;
+    word-break: break-all;
 }
 
 .reply-data {
@@ -181,4 +181,60 @@
 
 .reply-delete-font {
     font-size: 10px;
+}
+
+.title-text {
+    font-size: 20px;
+    margin-top: 10px;
+    padding-bottom: 0px;
+}
+
+@media screen and (max-width: 655px) {
+    .whole_post_page {
+        width: 100vw;
+    }
+
+    .article_info {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: center;
+    }
+
+    .article_hit{
+        display: flex;
+        width: 100%;
+    }
+
+    .article_data{
+        text-align: left;
+        margin: 0;
+    }
+
+    .article {
+        width: 100%;
+        padding: 5px;
+    }
+
+    .article-title {
+        height: 100%;
+    }
+
+    .article_data {
+        width: 100%;
+    }
+
+    .title-text {
+        font-size: 15px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .toMainBtn{
+        margin: 0 0 20px 0;
+    }
+
+    .hero-body{
+        text-align: center;
+    }
 }
