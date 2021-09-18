@@ -166,7 +166,9 @@ JWT는 발급한 후 검증만 하면 되기 때문에 추가 저장소가 필�
 <details>
 <summary>게시글 작성과 댓글 작성 중 줄바꿈을 해도 실제 보이는 페이지는 한 줄로 게시되는 현상 발견.</summary>
 <div markdown="1">
-
+    
+    원인
+    
     해결방안
     게시글 작성 줄바꿈은 '\n'로 저장되기에 서버단에서 content.replace('\n', '<br>')로 필터링하여 DB 저장으로 해결.
 
@@ -189,6 +191,80 @@ JWT는 발급한 후 검증만 하면 되기 때문에 추가 저장소가 필�
 
     해결방안
     onclick="function(this.value)" // 로 함수의 args를 설정하여 구현으로 해결함.
+
+</div>
+</details>
+
+<details>
+<summary>ajax에서 error로 빠지게 하려면 어떻게 해야 할까</summary>
+<div markdown=“1”>
+
+    해결방안
+    render_template() 메서드 http status 변경하기
+    `render_template(‘error/401.html’, msg=msg), 401`
+
+</div>
+</details>
+
+<details>
+<summary>매번 동일한 에러 처리를 작성하기 귀찮으면 어떻게 할 수 있을까</summary>
+<div markdown=“1">
+
+    해결방안
+    http error 핸들러 작성하고 핸들러에 에러 처리를 위임하기
+    `@app.errorhandler(500)
+     def page_not_found(e):
+         return render_template(‘error/500.html’), 500`
+    `abort(404)`
+
+</div>
+</details>
+
+<details>
+<summary>ObjectId() is not JSON serializable 에러와 함께 jsonify에 db조회 값이 안들어가면? </summary>
+<div markdown=“1”>
+
+    해결방안
+    mongoDB ObjectId를 jsonify에 넣기 전 문자열로 바꾸기
+    `for post in posts:
+         post[“_id”] = str(post[“_id”])`
+
+</div>
+</details>
+
+<details>
+<summary>문자열로 mongoDB의 ObjectId를 기준으로 조회하려면? </summary>
+<div markdown=“1">
+
+    해결방안
+    ObjectId 생성자 사용하기
+    `db.post.delete_one({‘_id’: ObjectId(post_id_receive)})`
+
+</div>
+</details>
+
+<details>
+<summary>JS에서 element를 생성하는 함수와 해당 element가 선택자인 Event Listener를 실행에 대한 에러 발생.</summary>
+<div markdown=“1">
+
+    원인
+    element가 생성함수를 실행하기 전에 Event Listener가 선언되어 존재하지 않는 element를 참고하는 동작을 수행했기를 인지함.
+
+    해결방안
+    Event Listener가 element 생성 함수와 다른 스코프에 존재할 경우, element 생성 함수가 실행되고 난 후 Event Listener를 동작시킴.
+
+</div>
+</details>
+
+<details>
+<summary>글 목록 데이터 GET요청 시 글 목록 데이터가 undefined로 출력되는 현상 발생.</summary>
+<div markdown=“1">
+
+    원인
+    글 데이터를 받은 GET요청은 비동기 처리이므로 요청된 데이터가 오기전에 글 목록 출력을 실행해서 생긴 현상임을 인지함.
+
+    해결방안
+    Ajax의 동작 후 글 출력 함수를 동작시키면 필요 데이터를 정상적으로 받고 수행하므로서 해결함. 
 
 </div>
 </details>
