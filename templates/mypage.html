@@ -94,14 +94,18 @@
             <div class="newList">
                 <ul class="list-group">
                     <div id="pagination">
+                        <!--페이지 리스트 만들기-->
                         {% for post in posts|reverse %}
                             <div class="clickPost" onclick="onClickPost('{{ post._id }}')">
+                                <!--첫번째 페이지는 d-flex-->
+                                <!-- loop.index0//page_size 는 게시물의 페이지 번호-1 -->
                                 {% if loop.index0//page_size == 0 %}
                                     <li class="list-group-item d-flex justify-content-between align-items-center"
                                         value={{ loop.index0//page_size }}>
                                         <p class="allListTextCopy">{{ post.title }}</p>
                                         <span class="badge badge-primary badge-pill">{{ post.like }}</span>
                                     </li>
+                                <!--나머지 페이지는 d-none-->
                                 {% else %}
                                     <li class="list-group-item d-none justify-content-between align-items-center"
                                         value={{ loop.index0//page_size }}>
@@ -113,19 +117,24 @@
                         {% endfor %}
                         <nav aria-label="Page navigation example">
                             <ul class="pagination post-pagination justify-content-center">
+                                <!--앞으로 버튼-->
                                 <li class="page-item">
                                     <a class="page-link previous-page-link" onclick="previousPage()">
                                         <span aria-hidden="true">&laquo;</span>
                                         <span class="sr-only">Previous</span>
                                     </a>
                                 </li>
+                                <!--페이지 버튼 만들기-->
+                                <!-- 페이지 사이즈로 나눴을 때 딱맞아 떨어지면 그 수만큼 반복, 그렇지 않으면 +1 반복 -->
                                 {% if (posts|length)%page_size == 0 %}
                                     {% for x in range((posts|length)//page_size) %}
+                                        <!--첫번째 버튼-->
                                         {% if x == 0 %}
                                             <li class="page-item active">
                                                 <a class="page-link" value={{ x }} onclick="post_page({{ x }})">
                                                     {{ x+1 }}</a>
                                             </li>
+                                        <!--나머지 버튼-->
                                         {% else %}
                                             <li class="page-item">
                                                 <a class="page-link" value={{ x }} onclick="post_page({{ x }})">
@@ -148,6 +157,7 @@
                                         {% endif %}
                                     {% endfor %}
                                 {% endif %}
+                                <!--다음 페이지-->
                                 <li class="page-item">
                                     <a class="page-link next-page-link" onclick="nextPage()">
                                         <span aria-hidden="true">&raquo;</span>
@@ -247,6 +257,7 @@
         window.location.href = "/"
     }
 
+    // 페이지네이션 클릭 이벤트
     function post_page(num) {
         $('.clickPost > .list-group-item').removeClass('d-flex').addClass('d-none');
         $(".clickPost > .list-group-item[value = " + num + "]").removeClass('d-none').addClass('d-flex');
@@ -254,6 +265,7 @@
         $(".post-pagination > .page-item > .page-link[value = " + num + "]").parent('.page-item').addClass('active');
     }
 
+    // 다음 페이지
     function nextPage() {
         let nextPage = $(".post-pagination > .active").children('a').attr('value') * 1 + 1;
         let max = $(".post-pagination > .page-item").length - 2
@@ -266,6 +278,7 @@
         }
     }
 
+    // 이전 페이지
     function previousPage() {
         let previousPage = $(".post-pagination > .active").children('a').attr('value') * 1 - 1;
 
@@ -277,6 +290,7 @@
         }
     }
 
+    // 페이지네이션 클릭 이벤트 (댓글)
     function comment_page(num) {
         $('.clickComment > .list-group-item').removeClass('d-flex').addClass('d-none');
         $(".clickComment > .list-group-item[value = " + num + "]").removeClass('d-none').addClass('d-flex');
@@ -284,6 +298,7 @@
         $(".comment-pagination > .page-item > .page-link[value = " + num + "]").parent('.page-item').addClass('active');
     }
 
+    // 다음 페이지 (댓글)
     function nextCommentPage() {
         let nextPage = $(".comment-pagination > .active").children('a').attr('value') * 1 + 1;
         let max = $(".comment-pagination > .page-item").length - 2
@@ -297,6 +312,7 @@
 
     }
 
+    // 이전 페이지 (댓글)
     function previousCommentPage() {
         let previousPage = $(".comment-pagination > .active").children('a').attr('value') * 1 - 1;
 

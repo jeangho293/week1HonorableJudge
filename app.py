@@ -14,6 +14,7 @@ app = Flask(__name__)
 
 SECRET_KEY = '99judge2'
 
+# 메인 페이지 로딩
 @app.route('/')
 def main():
     token_receive = request.cookies.get('mytoken')
@@ -36,12 +37,13 @@ def main():
     else:
         return render_template('index.html', posts=posts)
 
-
+# 로그인 페이지 로딩
 @app.route('/login_main')
 def login_main():
     msg = request.args.get("msg")
     return render_template('login.html', msg=msg)
 
+# 마이 페이지 로딩
 @app.route('/mypage')
 def mypage():
     token_receive = request.cookies.get('mytoken')
@@ -73,6 +75,7 @@ def mypage():
     else:
         return render_template('index.html')
 
+# 회원 가입
 @app.route('/register', methods=['POST'])
 def register_user():
     user_id_receive = request.form['user_id']
@@ -89,14 +92,14 @@ def register_user():
         db.users.insert_one(doc)
         return jsonify({'result': 'success'})
 
-
+# 아이디 중복 체크
 @app.route('/register/check_dup', methods=['POST'])
 def check_dup():
     username_receive = request.form['username_give']
     exists = bool(db.users.find_one({"user_id": username_receive}))
     return jsonify({'result': 'success', 'exists': exists})
 
-
+# 로그인
 @app.route('/login', methods=['POST'])
 def login():
     user_id_receive = request.form['user_id']
@@ -117,6 +120,7 @@ def login():
     else:
         return jsonify({'result': 'fail', 'msg': '아이디/비밀번호가 일치하지 않습니다.'})
 
+# 게시글 리스트 보내기
 @app.route('/posts', methods=['GET'])
 def get_post_list():
     user_id_receive = request.args.get('user_id')
@@ -138,6 +142,7 @@ def get_post_list():
             post["unlike"] = db.likes.count_documents({"post_id": post["_id"],"user_id": user_id_receive,  "like": -1})
         return jsonify({'posts': posts})
 
+# 상세 페이지 로딩
 @app.route('/post', methods=['GET'])
 def get_post():
     token_receive = request.cookies.get('mytoken')
@@ -168,6 +173,7 @@ def get_post():
     else:
         return render_template('post.html', post=post, comments=comments, like_count=like_count, unlike_count=unlike_count)
 
+# 게시글 추가
 @app.route('/post', methods=['POST'])
 def add_post():
     token_receive = request.cookies.get('mytoken')
@@ -199,6 +205,7 @@ def add_post():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 조회수 추가
 @app.route('/view', methods=['POST'])
 def plus_post_view():
     post_id_receive = request.form["post_id"]
@@ -206,6 +213,7 @@ def plus_post_view():
     db.post.update_one({'_id': ObjectId(post_id_receive)}, {'$inc': {'view': 1}})
     return jsonify({'msg': '조회수 추가.'})
 
+# 게시글 수정 페이지 로딩
 @app.route('/post/update')
 def load_update_page():
     token_receive = request.cookies.get('mytoken')
@@ -229,6 +237,7 @@ def load_update_page():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 게시글 수정
 @app.route('/post', methods=['PUT'])
 def update_post():
     token_receive = request.cookies.get('mytoken')
@@ -257,6 +266,7 @@ def update_post():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 게시글 삭제
 @app.route('/post', methods=['DELETE'])
 def delete_post():
     token_receive = request.cookies.get('mytoken')
@@ -283,6 +293,7 @@ def delete_post():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 댓글 추가
 @app.route('/comment', methods=['POST'])
 def add_comment():
     token_receive = request.cookies.get('mytoken')
@@ -313,7 +324,7 @@ def add_comment():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
-
+# 댓글 제거
 @app.route('/comment', methods=['DELETE'])
 def delete_comment():
     token_receive = request.cookies.get('mytoken')
@@ -339,6 +350,7 @@ def delete_comment():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 공감/비공감 추가
 @app.route('/like', methods=['POST'])
 def like_post():
     token_receive = request.cookies.get('mytoken')
@@ -384,18 +396,23 @@ def like_post():
         msg = '로그인 정보가 존재하지 않습니다.'
         return render_template('error/401.html', msg=msg), 401
 
+# 이미 있는 아이디인지 확안
 def is_user_id_exist(user_id):
     return db.users.find_one({'user_id': user_id}) is not None
 
+# 게시글이 있는지 확인
 def post_id_valid_check(post_id):
     if db.post.find_one({'_id': ObjectId(post_id)}) is None:
+        # 에러 핸들러에 위임
         abort(404)
     return
 
+# 해당 게시글의 작성자인지 확인
 def is_post_owner(post_id, user):
     post = db.post.find_one({'_id': ObjectId(post_id)})
     return post["user_id"] == user["user_id"]
 
+# 해당 댓글의 작성자인지 확인
 def is_comment_owner(comment_id, user):
     comment = db.comment.find_one({'_id': ObjectId(comment_id)})
     return comment["user_id"] == user["user_id"]
