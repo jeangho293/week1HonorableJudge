@@ -78,7 +78,6 @@
 ## 모바일 페이지
 
 <img width="200" alt="모바일화면" src="https://user-images.githubusercontent.com/71538344/133756747-4ac06d67-668a-4b6d-af8b-e640c1459297.gif" />
-<img width="200" alt="카카오톡" scr="https://user-images.githubusercontent.com/84619866/133869892-2cea8af6-82e2-45fb-90cc-cb5016df3d94.png" />
 
 
 <hr>
